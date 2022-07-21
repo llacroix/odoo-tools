@@ -60,7 +60,7 @@ jobs:
         PGPASSWORD: postgres
         PGPORT: 5432
       run: |
-        TEST_ODOO=${{ matrix.odoo_version }} pytest --cov=./ --cov-config=./setup.cfg
+        TEST_ODOO=${{ matrix.odoo-version }} pytest --cov=./ --cov-config=./setup.cfg
         codecov
 
     - name: Install Odoo
