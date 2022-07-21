@@ -1,3 +1,4 @@
+import os
 import sys
 import pytest
 import subprocess
@@ -56,7 +57,9 @@ def odoo_env():
     options.target = False
     options.cache = False
 
-    env.manage.install_odoo('15.0', opts=options)
+    odoo_version = "{}.0".format(os.environ['TEST_ODOO'])
+
+    env.manage.install_odoo(odoo_version, opts=options)
 
     try:
         yield env
@@ -74,7 +77,9 @@ def odoo_release():
     options.target = False
     options.cache = False
 
-    env.manage.install_odoo('15.0', release="20220624", opts=options)
+    odoo_version = "{}.0".format(os.environ['TEST_ODOO'])
+
+    env.manage.install_odoo(odoo_version, release="20220624", opts=options)
 
     try:
         yield env

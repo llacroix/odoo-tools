@@ -17,6 +17,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.7", "3.8", "3.9", "3.10"]
+        odoo-version: ["14", "15"]
 
     services:
       postgres:
@@ -59,7 +60,7 @@ jobs:
         PGPASSWORD: postgres
         PGPORT: 5432
       run: |
-        TEST_ODOO=1 pytest --cov=./ --cov-config=./setup.cfg
+        TEST_ODOO=${{ matrix.odoo_version }} pytest --cov=./ --cov-config=./setup.cfg
         codecov
 
     - name: Install Odoo
@@ -69,7 +70,7 @@ jobs:
         PGPASSWORD: postgres
         PGPORT: 5432
       run: |
-        odootools manage setup 15.0
+        odootools manage setup ${{ matrix.odoo-version }}.0
 
     - name: Initialize Database
       env:
@@ -78,7 +79,7 @@ jobs:
         PGPASSWORD: postgres
         PGPORT: 5432
       run: |
-        odootools --log-level INFO manage init --country CA -m sale -m stock test15
+        odootools --log-level INFO manage init --country CA -m sale -m stock test${{ matrix.odoo-version }}
 
     - name: Remove stock module
       env:
@@ -87,4 +88,4 @@ jobs:
         PGPASSWORD: postgres
         PGPORT: 5432
       run: |
-        odootools --log-level INFO manage uninstall -m stock test15
+        odootools --log-level INFO manage uninstall -m stock test${{ matrix.odoo-version }}
