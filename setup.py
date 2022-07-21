@@ -32,6 +32,7 @@ setuptools.setup(
         "passlib",
         "ptpython",
         "pip>=10.0",
+        "password-strength",
     ],
     extras_require={
         "docs": [
