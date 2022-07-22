@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="odoo-tools",
-    version="0.1.2",
+    version="0.1.3",
     author="Loïc Faure-Lacroix <lamerstar@gmail.com>",
     author_email="lamerstar@gmail.com",
     description="Odoo Tools",
@@ -32,6 +32,7 @@ setuptools.setup(
         "passlib",
         "ptpython",
         "pip>=10.0",
+        "password-strength",
     ],
     extras_require={
         "docs": [

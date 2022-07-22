@@ -67,10 +67,16 @@ def after_config(man):
 def initialize_odoo(man):
     _logger.info("Init Odoo")
     import odoo
+    from odoo.release import version_info
+
     man.config._parse_config([])
+
     if man.environment.context.init_logger:
         odoo.netsvc.init_logger()
-    man.config._warn_deprecated_options()
+
+    if version_info[0] >= 14:
+        man.config._warn_deprecated_options()
+
     odoo.modules.module.initialize_sys_path()
 
 
